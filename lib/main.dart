@@ -1,7 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:arc_progress_bar_new/arc_progress_bar_new.dart';
+import 'package:health_tracker/calories_card.dart';
+import 'package:health_tracker/info_card.dart';
+import 'package:health_tracker/meal_card.dart';
+import 'package:health_tracker/step_card.dart';
+import 'package:health_tracker/water_card.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,132 +17,71 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: const MyHomePage(),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.black),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chào buổi sáng'),
+        title: const Text(
+          'Chào buổi sáng',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: Colors.black,
+        centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                          color: Colors.green,
-                          child: Column(
-                            children: [
-                              Text('Calories'),
-                              CircularProgressIndicator(
-                                value: 0.73,
-                                backgroundColor: Colors.white,
-                                valueColor: AlwaysStoppedAnimation(Colors.green),
-                              ),
-                              Text('730 kCal'),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Card(
-                          color: Colors.grey,
-                          child: Column(
-                            children: [
-                              Text('Age: 25'),
-                              Text('Gender: Male'),
-                              Text('Weight: 25'),
-                              Text('Height: 25'),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text('24.6'),
-                                      Text('BMI'),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text('24.6'),
-                                      Text('Fat'),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                          color: Colors.blue,
-                          child: Column(
-                            children: [
-                              Text('Water'),
-                              Text('0/8'),
-                              Text('1 glass = 250ml'),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Card(
-                          color: Colors.orange,
-                          child: Column(
-                            children: [
-                              Text('Step'),
-                              Text('1456/6000'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Card(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/meal.png'),
-                        Text('Vegetable'),
-                        Text('200 cals'),
-                      ],
-                    ),
-                  ),
-                  // Repeat the Card for more meals as needed
-                ],
+      body: const SingleChildScrollView(
+        child: Padding(
+          padding:  EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+               IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CaloriesCard(),
+                    InfoCard(),
+                  ],
+                ),
               ),
-            ),
-          ],
+               SizedBox(height: 8.0),
+               IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    WaterCard(),
+                    StepCard(),
+                  ],
+                ),
+              ),
+               SizedBox(height: 8.0),
+              MealCard(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        backgroundColor: Colors.black,
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home, color: Colors.white),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
+            icon: Icon(Icons.calendar_today, color: Colors.white),
             label: 'Calendar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings, color: Colors.white),
             label: 'Settings',
           ),
         ],
