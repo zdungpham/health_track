@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:arc_progress_bar_new/arc_progress_bar_new.dart';
-import 'package:health_tracker/calories_card.dart';
-import 'package:health_tracker/info_card.dart';
-import 'package:health_tracker/meal_card.dart';
-import 'package:health_tracker/step_card.dart';
-import 'package:health_tracker/water_card.dart';
+import 'package:health_tracker/card/calories_card.dart';
+import 'package:health_tracker/greeting_bar.dart';
+import 'package:health_tracker/card/info_card.dart';
+import 'package:health_tracker/card/meal_card.dart';
+import 'package:health_tracker/card/step_card.dart';
+import 'package:health_tracker/card/water_card.dart';
+import 'package:health_tracker/my_home_page.dart';
+import 'package:health_tracker/profile_screen.dart';
+import 'package:health_tracker/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,75 +21,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MyHomePage(),
+      home: const SplashScreen(),
       theme: ThemeData(scaffoldBackgroundColor: Colors.black),
+      routes: {
+        '/home': (context) => MyHomePage(),
+        '/profile': (context) => const ProfileScreen(),
+        // '/calendar': (context) => const Calendar(),
+        // '/setting': (context) => const Setting(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Chào buổi sáng',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-      ),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding:  EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-               IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CaloriesCard(),
-                    InfoCard(),
-                  ],
-                ),
-              ),
-               SizedBox(height: 8.0),
-               IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    WaterCard(),
-                    StepCard(),
-                  ],
-                ),
-              ),
-               SizedBox(height: 8.0),
-              MealCard(),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today, color: Colors.white),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, color: Colors.white),
-            label: 'Settings',
-          ),
-        ],
-      ),
-    );
-  }
-}
