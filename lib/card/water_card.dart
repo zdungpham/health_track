@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_tracker/database_helper.dart';
 
 class WaterCard extends StatefulWidget {
   const WaterCard({super.key});
@@ -10,6 +11,23 @@ class WaterCard extends StatefulWidget {
 
 class _WaterCardState extends State<WaterCard> {
   int glassesCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWaterCount();
+  }
+
+  Future<void> _loadWaterCount() async {
+    final int waterCount = await DatabaseHelper().getWater();
+    setState(() {
+      glassesCount = waterCount;
+    });
+  }
+
+  Future<void> _updateWaterCount() async {
+    await DatabaseHelper().insertWater(glassesCount);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +62,7 @@ class _WaterCardState extends State<WaterCard> {
                     setState(() {
                       if (glassesCount > 0) {
                         glassesCount--;
+                        _updateWaterCount();
                       }
                     });
                   },
@@ -69,6 +88,7 @@ class _WaterCardState extends State<WaterCard> {
                     setState(() {
                       if (glassesCount < 8) {
                         glassesCount++;
+                        _updateWaterCount();
                       }
                     });
                   },

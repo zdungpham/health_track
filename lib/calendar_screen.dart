@@ -22,9 +22,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
         onHorizontalDragEnd: (details) {
           setState(() {
             if (details.velocity.pixelsPerSecond.dx > 0) {
-              _focusedDay = _focusedDay.subtract(Duration(days: 7));
+              _focusedDay = _focusedDay.subtract(const Duration(days: 7));
             } else {
-              _focusedDay = _focusedDay.add(Duration(days: 7));
+              _focusedDay = _focusedDay.add(const Duration(days: 7));
             }
           });
         },

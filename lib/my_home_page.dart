@@ -8,7 +8,7 @@ import 'package:health_tracker/greeting_bar.dart';
 import 'package:health_tracker/bottom_navigator.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
   @override
   _MyHomePage createState() => _MyHomePage();
 }
