@@ -41,6 +41,9 @@ dependencies:
   sqflite: ^2.3.3+1
   path: ^1.9.0
   path_provider: ^2.1.3
+  pedometer: ^4.0.1
+  permission_handler: ^11.3.1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,8 @@ flutter:
   assets:
     - assets/images/meal.png
     - assets/images/hungry.png
+    - assets/images/hungry.svg
+    - assets/images/food 2.svg
     - assets/images/Salad.jfif
     - assets/images/chicken.jfif
     - assets/images/fruit.jfif

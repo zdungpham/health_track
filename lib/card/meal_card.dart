@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MealCard extends StatefulWidget {
   const MealCard({super.key});
@@ -57,17 +58,18 @@ class _MealCardState extends State<MealCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.black,
+      color: Colors.red,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/hungry.png',
-              height: 100,
-              width: 100,
-            ),
+            SvgPicture.asset('assets/images/food 2.svg',
+            height:50,
+            width: 50,
+            semanticsLabel: 'Logo',
+             ),
+
             const Text('You have not eaten anything yet', style: TextStyle(color: Colors.white),),
             const Text("Don't let yourself hungry", style: TextStyle(color: Colors.white),),
             const SizedBox(height: 10),
