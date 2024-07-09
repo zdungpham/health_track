@@ -24,7 +24,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   Future<void> _loadStepCount(DateTime date) async {
     final dbHelper = DatabaseHelper();
-    final formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    final formattedDate = DateFormat('dd-MM-yyyy').format(date);
     final stepRecord = await dbHelper.getStepCountForDate(formattedDate);
 
     setState(() {
@@ -60,7 +60,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
               onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
                   _selectedDay = selectedDay;
-                  _focusedDay = focusedDay; // update `_focusedDay` here as well
+                  _focusedDay = focusedDay;
+                  _loadStepCount(selectedDay); // Load step count for the selected day
                 });
               },
               calendarFormat: CalendarFormat.week,
@@ -77,8 +78,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
           ),
           const SizedBox(height: 20,),
-          Text('Steps on ${DateFormat('yyyy-MM-dd').format(_selectedDay!)}: $_stepCount',
-            style: const TextStyle(fontSize: 18),)
+          Text(
+            'Steps on ${DateFormat('dd-MM-yyyy').format(_selectedDay!)}: $_stepCount',
+            style: const TextStyle(fontSize: 18),
+          )
         ],
       ),
     );

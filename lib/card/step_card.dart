@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_tracker/database_helper.dart';
 import 'package:health_tracker/step_counter.dart';
+import 'package:intl/intl.dart';
 
 
 class StepCard extends StatefulWidget {
@@ -11,6 +13,24 @@ class StepCard extends StatefulWidget {
 }
 
 class _StepCardState extends State<StepCard> {
+
+  int _stepCount = 0;
+  final dbHelper = DatabaseHelper();
+  
+  @override
+  void initState() {
+    super.initState();
+    fetchStepCount();
+  }
+
+  Future<void> fetchStepCount() async {
+    String today = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    final stepRecord = await dbHelper.getStepCountForDate(today);
+    setState(() {
+      _stepCount = stepRecord != null ? stepRecord['step_count'] : 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return  const Expanded(

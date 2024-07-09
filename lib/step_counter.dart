@@ -20,9 +20,8 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
   @override
   void initState() {
     super.initState();
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(onStepCount).onError(onStepCountError);
     requestPermissions();
+    startListening();
     startTimer();
   }
 
@@ -38,12 +37,10 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     if (status.isGranted) {
       startListening();
     } else if (status.isDenied) {
-      // Show a message to the user that the permission was denied
       setState(() {
         _stepCountValue = 'Permission Denied';
       });
     } else if (status.isPermanentlyDenied) {
-      // Show a message to the user to enable permission from settings
       openAppSettings();
     }
   }
@@ -57,6 +54,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     setState(() {
       _stepCountValue = event.steps.toString();
     });
+    saveStepCount(event.steps);
   }
 
   void onStepCountError(error) {
@@ -81,14 +79,13 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     final existingRecord = await dbHelper.getStepCountForDate(today);
 
     if (existingRecord != null) {
-      // Update the existing record with the new step count
       int newStepCount = steps + (existingRecord['step_count']) as int;
       await dbHelper.insertStepCount(newStepCount, today);
     } else {
-      // Insert a new record
       await dbHelper.insertStepCount(steps, today);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Center(

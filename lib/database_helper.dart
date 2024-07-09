@@ -70,8 +70,8 @@ class DatabaseHelper {
   Future<void> insertWater(int water) async {
     final db = await database;
     await db.insert(
-      'meals',
-      {'water': water},
+      'meals' ,
+      {'water': water}, 
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

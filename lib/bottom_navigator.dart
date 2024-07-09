@@ -19,7 +19,7 @@ class _BottomNavigatorBarState extends State<BottomNavigatorBar>{
         Navigator.pushNamed(context, '/home');
         break;
       case 1:
-        Navigator.pushNamed(context, '/calendar');
+        Navigator.pushNamed(context, '/calemdar');
         break;
       case 2:
         Navigator.pushNamed(context, '/profile');
